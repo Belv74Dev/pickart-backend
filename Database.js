@@ -3,9 +3,9 @@ const mysql = require('mysql2');
 const dbpool =mysql.createPool
 ({
   host: "localhost",
-  user: "root",
+  user: "dba",
   database: "PickArt",
-  password: "AdRootPass123"
+  password: "dbaPass"
 });
 
 dbpool.getConnection((err,conn)=>{

@@ -18,8 +18,6 @@ const bcrypt = require('bcrypt');
 // import { PrismaClient } from '@prisma/client';
 // const prisma = new PrismaClient()
 
-
-
 function verifyUserToken(req, res, next) {
   // console.log("VT: ",req);
   let token = req.headers.authorization;
@@ -76,7 +74,7 @@ app.get('/Search', async (req, res) => {
     const limit = 6 * 4
     const offset = (page - 1) * limit
     const [totalPageData] = await mysql.query(`SELECT count(*) as count from artwork where Title LIKE '%${SerchData}%'`)
-    const totalPage = Math.ceil(+totalPageData[0]?.count / limit)
+    const totalPage = totalPageData[0] ? Math.ceil(+totalPageData[0]?.count / limit) : 0;
     const Id = await mysql.query(`SELECT Id FROM TegsBody WHERE Title LIKE '${SerchData}'`)
     if (Id[0][0]) {
       const TegedId = await mysql.query(`SELECT ArtWorkId from Tegs WHERE Id = ${Id[0][0].Id}`)
